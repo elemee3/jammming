@@ -10,9 +10,9 @@ class App extends React.Component {
     super(props)
 /* Set initial states of searchResults, playlistName, and playlistTracks */
     this.state = {
-      searchResults: [],
+      searchResults: ["result1", "result2", "result3"],
       playlistName: 'New Playlist',
-      playlistTracks: []
+      playlistTracks: ["track1", "track2", "track3"]
     }
   }
 /* If the track isn't already in the playlist, add to end and set new state */
@@ -72,14 +72,14 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        {console.log(`SEARCH RESULTS: ${this.state.searchResults}`)}
-        <SearchBar onSearch={this.search} />
+        {console.log(`SEARCH RESULTS IN APP: ${this.state.searchResults}`)}
+        <SearchBar tracks={this.state.playlistTracks} onSearch={this.search} />
         <div className="App-playlist">
 {/*  Pass the state of App's searchResults to SearchResults component */}
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
 {/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
-        {console.log(`PLAYLIST NAME: ${this.state.playlistName}`)}
-        {console.log(`PLAYLIST TRACKS: ${this.state.playlistTracks}`)}
+        {console.log(`PLAYLIST NAME IN APP: ${this.state.playlistName}`)}
+        {console.log(`PLAYLIST TRACKS IN APP: ${this.state.playlistTracks}`)}
         <Playlist playlistName={this.state.playlistName}
                   playlistTracks={this.state.playlistTracks}
                   onRemove={this.removeTrack}
