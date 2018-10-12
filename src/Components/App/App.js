@@ -7,39 +7,30 @@ import Spotify from '../../util/Spotify.js';
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 /* Set initial states of searchResults, playlistName, and playlistTracks */
     this.state = {
-      searchResults: []
-    };
-    this.state = {
-      playlistName: 'New Playlist'
-    };
-    this.state = {
+      searchResults: [],
+      playlistName: 'New Playlist',
       playlistTracks: []
-    };
-/* Bind this to addTrack, removeTrack, updatePlaylistName, savePlaylist, and search */
-    this.addTrack = this.addTrack.bind(this);
-    this.removeTrack = this.removeTrack.bind(this);
-    this.updatePlaylistName = this.updatePlaylistName.bind(this);
-    this.savePlaylist = this.savePlaylist.bind(this);
-    this.search = this.search.bind(this);
+    }
   }
 /* If the track isn't already in the playlist, add to end and set new state */
-  addTrack(track) {
-    for (let i = 0; i < this.state.playlistTracks.length - 1; i++) {
-      if (track.id === this.state.playlistTracks[i].id) {
+  addTrack = (track) => {
+    let { playlistTracks } = this.state.playlistTracks;
+    for (let i = 0; i < playlistTracks.length - 1; i++) {
+      if (track.id === playlistTracks[i].id) {
         return;
       } else {
         this.setState({
-          playlistTracks: this.state.playlistTracks.push(track)
+          playlistTracks: playlistTracks.push(track)
         });
       }
     }
     return this.state.playlistTracks;
   }
 /* Remove the track from playlistTracks, set new state without it */
-  removeTrack(track) {
+  removeTrack = (track) => {
     let trackList = this.state.playlistTracks;
     let trackToRemoveIndex = function () {
       for (let i = 0; i < trackList.length - 1; i++) {
@@ -55,13 +46,13 @@ class App extends React.Component {
     return this.state.playlistTracks;
   }
 /* Sets new playlist name */
-  updatePlaylistName(name) {
+  updatePlaylistName = (name) => {
     this.setState({ playlistName: name });
     return this.state.playlistName;
   }
 /*  Generate an array of uri values from playlistTracks, send to Spotify account,
     reset playlistName and playlistTracks */
-  savePlaylist() {
+  savePlaylist = () => {
     let trackURIs = [];
     for (let i = 0; i < this.state.playlistTracks.length - 1; i++) {
       trackURIs.push(this.state.playlistTracks[i].uri);
@@ -72,7 +63,7 @@ class App extends React.Component {
   }
 /*  Search the term in Spotify, update state of searchResults to
     returned promise from Spotify.search() */
-  search(term) {
+  search = (term) => {
     this.setState({ searchResults: Spotify.search(term) })
   }
 
@@ -81,11 +72,14 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
+        {console.log(`SEARCH RESULTS: ${this.state.searchResults}`)}
         <SearchBar onSearch={this.search} />
         <div className="App-playlist">
 {/*  Pass the state of App's searchResults to SearchResults component */}
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
 {/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
+        {console.log(`PLAYLIST NAME: ${this.state.playlistName}`)}
+        {console.log(`PLAYLIST TRACKS: ${this.state.playlistTracks}`)}
         <Playlist playlistName={this.state.playlistName}
                   playlistTracks={this.state.playlistTracks}
                   onRemove={this.removeTrack}

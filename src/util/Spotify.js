@@ -1,10 +1,9 @@
-import React from 'react';
 let accessToken;
 let clientId = '9719656dcd2c46e29578cc7cc42b49cf';
 let redirectURI = 'http://localhost:3000/';
 // const clientSecret = '0493228183a0469791f6eda5192ce5eb';
 
-class Spotify extends React.Component {
+class Spotify {
 /* Checks to make sure that the URL contains access_token and expires_in */
   isUrl() {
     if (window.location.href.match(/access_token=([^&]*)/) &&
