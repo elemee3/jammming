@@ -58,13 +58,17 @@ class App extends React.Component {
       trackURIs.push(this.state.playlistTracks[i].uri);
     };
     Spotify.savePlaylist(this.state.playlistName, trackURIs);
-    this.setState({ playlistName: 'New Playlist' });
-    this.setState({ searchResults: [] });
+    this.setState({
+      playlistName: 'New Playlist',
+      searchResults: []
+    });
   }
-/*  Search the term in Spotify, update state of searchResults to
-    returned promise from Spotify.search() */
+  // Search the term in Spotify, update state of searchResults to
+  // returned promise from Spotify.search()
   search = (term) => {
-    this.setState({ searchResults: Spotify.search(term) })
+    if (term) {
+      this.setState({ searchResults: Spotify.search(term) })
+    }
   }
 
   render() {
@@ -72,8 +76,14 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        {console.log(`SEARCH RESULTS IN APP: ${this.state.searchResults}`)}
+        {console.log(`SEARCH RESULTS IN APP: ${this.state.searchResults}`) /*these get updated to a promise*/}
         <SearchBar tracks={this.state.playlistTracks} onSearch={this.search} />
+        </div>
+      </div>
+    )}
+  };
+
+  export default App;
         <div className="App-playlist">
 {/*  Pass the state of App's searchResults to SearchResults component */}
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
@@ -86,9 +96,3 @@ class App extends React.Component {
                   onNameChange={this.updatePlaylistName}
                   onSave={this.savePlaylist} />
         </div>
-      </div>
-    </div>
-  )}
-};
-
-export default App;

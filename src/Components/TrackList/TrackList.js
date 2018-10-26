@@ -4,7 +4,7 @@ import './TrackList.css';
 
 class TrackList extends React.Component {
   render() {
-    console.log(`TRACKLIST RENDER: ${this.props.tracks}`);    //returning undefined
+    console.log(`TRACKLIST RENDER: ${this.props.tracks}`);    //returning [object Promise]
 
     let theseTracks = this.props.tracks.map(track => {
         return <Track     track={track}

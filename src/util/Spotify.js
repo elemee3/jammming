@@ -2,8 +2,9 @@ let accessToken;
 let clientId = '9719656dcd2c46e29578cc7cc42b49cf';
 let redirectURI = 'http://localhost:3000/';
 // const clientSecret = '0493228183a0469791f6eda5192ce5eb';
-
-class Spotify {
+// when Spotify wants Basic <base64 encoded client_id:client_secret>, use line below:
+// var encodedData = new Buffer(client_id + ':' + client_secret).toString('base64');
+let Spotify = {
 /* Checks to make sure that the URL contains access_token and expires_in */
   isUrl() {
     if (window.location.href.match(/access_token=([^&]*)/) &&
@@ -12,7 +13,7 @@ class Spotify {
         } else {
           return false;
         }
-  }
+  },
 /* Returns accessToken once it is saved, retrieves it if not */
   getAccessToken() {
     if (accessToken) {
@@ -32,7 +33,7 @@ class Spotify {
       window.location.assign(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`);
       }
     }
-  }
+  },
 /* Accept a search term, pass term value to a Spotify request, return list of tracks */
   async search(term) {
     const url =  `https://api.spotify.com/v1/search?type=track&q=${term}`;
@@ -58,7 +59,7 @@ class Spotify {
         }
       })
     })
-  }
+  },
 
   async savePlaylist(playlistName, playlistTracks) {
     // Make sure playlistName and playlistTracks both have a value
