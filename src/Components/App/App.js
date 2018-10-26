@@ -10,9 +10,9 @@ class App extends React.Component {
     super(props)
 /* Set initial states of searchResults, playlistName, and playlistTracks */
     this.state = {
-      searchResults: ["result1", "result2", "result3"],
+      searchResults: [],
       playlistName: 'New Playlist',
-      playlistTracks: ["track1", "track2", "track3"]
+      playlistTracks: []
     }
   }
 /* If the track isn't already in the playlist, add to end and set new state */

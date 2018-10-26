@@ -4,13 +4,15 @@ import './Track.css';
 class Track extends React.Component {
 /* Determines if track function should be add (+) or remove (-) */
   renderAction = () => {
-    let action;
+    let actions = ['', '']
     if (this.props.isRemoval) {
-      action = <a onClick={this.removeTrack()}>-</a>;
+      actions[0] = this.removeTrack();
+      actions[1] = '-';
     } else {
-      action = <a onClick={this.addTrack()}>+</a>;
+      actions[0] = this.addTrack();
+      actions[1] = '+';
     }
-    return action;
+    return actions;
   }
 
   addTrack = () => {
@@ -26,9 +28,9 @@ class Track extends React.Component {
       <div className="Track">
         <div className="Track-information">
           <h3>{this.props.track.name}</h3>
-          <p>{this.props.track.artist}| {this.props.track.album}</p>
+          <p>{this.props.track.artist} {this.props.track.album}</p>
         </div>
-          <a className="Track-action" onClick={this.renderAction}>''</a>
+          <a className="Track-action" onClick={this.renderAction[0]}>{this.renderAction[1]}</a>
       </div>
     )
   }

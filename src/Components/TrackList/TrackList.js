@@ -5,8 +5,8 @@ import './TrackList.css';
 class TrackList extends React.Component {
   render() {
     console.log(`TRACKLIST RENDER: ${this.props.tracks}`);    //returning [object Promise]
-
-    let theseTracks = this.props.tracks.map(track => {
+// getting an error, because this.props.tracks is not an array, map only works for arrays
+    let tracks = this.props.tracks.map(track => {
         return <Track     track={track}
                           key={track.id}
                           onAdd={this.props.onAdd}
@@ -16,7 +16,7 @@ class TrackList extends React.Component {
 
     return (
       <div className="TrackList">
-        {theseTracks}
+        {tracks}
       </div>
   )}
 };

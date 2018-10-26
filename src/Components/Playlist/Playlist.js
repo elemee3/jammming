@@ -24,16 +24,11 @@ class Playlist extends React.Component {
         <TrackList tracks={this.props.playlistTracks}
                    isRemoval={true}
                    onRemove={this.props.onRemove} />
+        {/* Click calls .onSave() in App, which calls Spotify.save() */}
+        <a className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</a>
       </div>
     )
   }
 }
 
 export default Playlist;
-
-/*  playlistTracks passed here from App, passed down to TrackList */
-/*     set isRemoval to true since tracks here are on the playlist already */
-/* I know there is an issue here with the tracks property...Can't figure it out! */
-
-// Clicking link will call onSave in App, which calls Spotify.save() */
-      //  <a className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</a>
