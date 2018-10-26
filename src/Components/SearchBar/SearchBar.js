@@ -26,7 +26,7 @@ class SearchBar extends React.Component {
                 placeholder="Enter A Song, Album, or Artist"
                 onChange={this.handleTermChange} />
         <a onClick={this.search()}>SEARCH</a>
-        {/*<TrackList tracks={this.props.tracks} />*/}
+        <TrackList tracks={this.props.tracks} />
       </div>
     )
   }

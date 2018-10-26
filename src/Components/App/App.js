@@ -79,20 +79,22 @@ class App extends React.Component {
         {console.log(`SEARCH RESULTS IN APP: ${this.state.searchResults}`) /*these get updated to a promise*/}
         <SearchBar tracks={this.state.playlistTracks} onSearch={this.search} />
         </div>
+          <div className="App-playlist">
+  {/*  Pass the state of App's searchResults to SearchResults component */}
+          <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+  {/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
+          {console.log(`PLAYLIST NAME IN APP: ${this.state.playlistName}`)}
+          {console.log(`PLAYLIST TRACKS IN APP: ${this.state.playlistTracks}`)}
+          <Playlist playlistName={this.state.playlistName}
+                    playlistTracks={this.state.playlistTracks}
+                    onRemove={this.removeTrack}
+                    onNameChange={this.updatePlaylistName}
+                    onSave={this.savePlaylist} />
+          </div>
       </div>
-    )}
-  };
+    );
+  }
 
-  export default App;
-        <div className="App-playlist">
-{/*  Pass the state of App's searchResults to SearchResults component */}
-        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-{/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
-        {console.log(`PLAYLIST NAME IN APP: ${this.state.playlistName}`)}
-        {console.log(`PLAYLIST TRACKS IN APP: ${this.state.playlistTracks}`)}
-        <Playlist playlistName={this.state.playlistName}
-                  playlistTracks={this.state.playlistTracks}
-                  onRemove={this.removeTrack}
-                  onNameChange={this.updatePlaylistName}
-                  onSave={this.savePlaylist} />
-        </div>
+};
+
+export default App;
