@@ -20,7 +20,6 @@ class Playlist extends React.Component {
                 placeholder={'New Playlist'}
                 value={this.state.value}
                 onChange={this.handleNameChange} />
-        {console.log(`PLAYLIST RENDER:: ${this.props.playlistTracks}`)}
         <TrackList tracks={this.props.playlistTracks}
                    isRemoval={true}
                    onRemove={this.props.onRemove} />

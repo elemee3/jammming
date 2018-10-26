@@ -76,15 +76,12 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        {console.log(`SEARCH RESULTS IN APP: ${this.state.searchResults}`) /*these get updated to a promise*/}
         <SearchBar tracks={this.state.playlistTracks} onSearch={this.search} />
         </div>
           <div className="App-playlist">
   {/*  Pass the state of App's searchResults to SearchResults component */}
           <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
   {/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
-          {console.log(`PLAYLIST NAME IN APP: ${this.state.playlistName}`)}
-          {console.log(`PLAYLIST TRACKS IN APP: ${this.state.playlistTracks}`)}
           <Playlist playlistName={this.state.playlistName}
                     playlistTracks={this.state.playlistTracks}
                     onRemove={this.removeTrack}

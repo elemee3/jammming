@@ -4,8 +4,7 @@ import './TrackList.css';
 
 class TrackList extends React.Component {
   render() {
-    console.log(`TRACKLIST RENDER: ${this.props.tracks}`);    //returning [object Promise]
-// getting an error, because this.props.tracks is not an array, map only works for arrays
+// getting an error, because this.props.tracks is not an array, it's returning a promise
     let tracks = this.props.tracks.map(track => {
         return <Track     track={track}
                           key={track.id}
