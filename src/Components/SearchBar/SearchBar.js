@@ -25,7 +25,9 @@ class SearchBar extends React.Component {
                 value={this.state.value}
                 placeholder="Enter A Song, Album, or Artist"
                 onChange={this.handleTermChange} />
-        <a onClick={this.search()}>SEARCH</a>
+        <a onClick={this.search}>SEARCH</a>
+        {console.log(`SearchBar calling TrackList:: `)}
+        {console.log(this.props.tracks)}
         <TrackList tracks={this.props.tracks} />
       </div>
     )

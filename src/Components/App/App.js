@@ -3,7 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar.js';
 import SearchResults from '../SearchResults/SearchResults.js';
 import Playlist from '../Playlist/Playlist.js';
-import Spotify from '../../util/Spotify.js';
+import Spotify from '../util/Spotify.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -66,8 +66,13 @@ class App extends React.Component {
   // Search the term in Spotify, update state of searchResults to
   // returned promise from Spotify.search()
   search = (term) => {
-    if (term) {
-      this.setState({ searchResults: Spotify.search(term) })
+    // create an instance of Spotify to work with, since it is a class
+    let spotifyHelper = new Spotify()
+    console.log('calling search() in App.js')
+    let results;
+    if (results = spotifyHelper.search(term)) {
+      console.log('TRUE')
+      this.setState({ searchResults: results })
     }
   }
 
@@ -76,12 +81,18 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
+        {console.log('App calling SearchBar::')}
+        {console.log(this.state.playlistTracks)}
         <SearchBar tracks={this.state.playlistTracks} onSearch={this.search} />
         </div>
           <div className="App-playlist">
   {/*  Pass the state of App's searchResults to SearchResults component */}
+          {console.log('App calling SearchResults::')}
+          {console.log(this.state.searchResults)}
           <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
   {/*  Pass the state of App's playlistName and playlistTracks to Playlist component */}
+          {console.log('App calling Playlist::')}
+          {console.log(this.state.playlistTracks)}
           <Playlist playlistName={this.state.playlistName}
                     playlistTracks={this.state.playlistTracks}
                     onRemove={this.removeTrack}

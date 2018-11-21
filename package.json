@@ -8,11 +8,13 @@
     "cryptiles": "^4.1.2",
     "deep-extend": "^0.6.0",
     "macaddress": "^0.2.9",
+    "node-fetch": "^2.2.0",
     "npm": "^6.4.1",
     "randomatic": "^3.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "^1.1.1",
+    "request": "^2.88.0",
     "url-parse": "^1.4.3"
   },
   "scripts": {
