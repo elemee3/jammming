@@ -12,7 +12,8 @@ class App extends React.Component {
     this.state = {
       searchResults: [],
       playlistName: 'New Playlist',
-      playlistTracks: []
+      playlistTracks: [],
+      searchTerm: ""
     }
     this.search = this.search.bind(this)
   }
@@ -67,13 +68,27 @@ class App extends React.Component {
 
   // Search the term in Spotify, update state of searchResults to
   // returned promise from Spotify.search()
-  async search (term) {
+  search (term) {
     // create an instance of Spotify to work with
     let spotifyHelper = new Spotify()
     console.log('calling search() in App.js')
-    let results = await spotifyHelper.search()
-    console.log(results)
-    this.setState({ searchResults: results })
+    spotifyHelper.search(term)
+    .then(tracks => {
+      console.log(tracks)
+      console.log(tracks.tracks.items[0].album.name)
+
+      let trackList = tracks.tracks.items.map(track => {
+        return {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri
+        }
+      })
+      console.log(trackList)
+      this.setState({ searchResults: trackList })
+    })
   }
 
   render() {

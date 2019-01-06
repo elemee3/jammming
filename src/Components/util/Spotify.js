@@ -35,6 +35,7 @@ class Spotify {
   }
 
   async search(term) {
+    console.log(term)
     let token;
     await this.getToken()
       .then(tok => {
@@ -48,25 +49,11 @@ class Spotify {
         },
         json: true
       }
-      await reqPromise.get(options)
-        .then(response => {
-          console.log(response.tracks.items)
-          return response.tracks.items
-        })
+      // send back an array of tracks
+      console.log('OPTIONS ', options)
+      return reqPromise.get(options)
     }
   }
-  // jsonResponse.map(track => {
-  //   return {
-  //     id: track.id,
-  //     name: track.name,
-  //     artist: track.artists[0].name,
-  //     album: track.album.name,
-  //     uri: track.uri
-  //   }
-  // })
-
-// let spot = new Spotify()
-// spot.search('abba')
 
 export default Spotify;
 
