@@ -14,6 +14,7 @@ class App extends React.Component {
       playlistName: 'New Playlist',
       playlistTracks: []
     }
+    this.search = this.search.bind(this)
   }
 /* If the track isn't already in the playlist, add to end and set new state */
   addTrack = (track) => {
@@ -63,17 +64,16 @@ class App extends React.Component {
       searchResults: []
     });
   }
+
   // Search the term in Spotify, update state of searchResults to
   // returned promise from Spotify.search()
-  search = (term) => {
-    // create an instance of Spotify to work with, since it is a class
+  async search (term) {
+    // create an instance of Spotify to work with
     let spotifyHelper = new Spotify()
     console.log('calling search() in App.js')
-    let results;
-    if (results = spotifyHelper.search(term)) {
-      console.log('TRUE')
-      this.setState({ searchResults: results })
-    }
+    let results = await spotifyHelper.search()
+    console.log(results)
+    this.setState({ searchResults: results })
   }
 
   render() {

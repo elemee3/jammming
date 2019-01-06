@@ -2,10 +2,13 @@ const clientSecret = '0493228183a0469791f6eda5192ce5eb';
 const clientId = '9719656dcd2c46e29578cc7cc42b49cf';
 const redirectURI = 'http://localhost:3000/';
 const request = require('request');
+const reqPromise = require('request-promise');
 let accessToken;
 
+//options to get token
 let authOptions = {
-  url: `https://accounts.spotify.com/api/token`,
+  method: 'POST',
+  url: 'https://accounts.spotify.com/api/token',
   headers: {
     'Authorization': 'Basic ' + (new Buffer(clientId + ':' + clientSecret).toString('base64'))
   },
@@ -16,51 +19,56 @@ let authOptions = {
 };
 
 class Spotify {
-  search(term) {
-    let trackList;
-    const url =  `https://api.spotify.com/v1/search?type=track&q=${term}`;
-    request.post(authOptions, function(error, response, body) {
-      if (error) {
-        console.log(error)
-      }
-      console.log('response::::: ')
-      console.log(JSON.stringify(body))
-      if (!error && response.statusCode === 200) {
-        // use the access token to access the Spotify Web API
-        var token = body.access_token;
-        var options = {
-          url: `https://api.spotify.com/v1/search?type=track&q=${term}`,
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Access-Control-Allow-Origin': '*'
-          },
-          json: true
-        };
-        trackList = request.get(options, function(error, response, body) {
-          console.log(body.tracks.items[0])
-          return body.tracks
-        });
-      }
-      console.log(trackList)
-      return trackList
-    });
+  async getToken() {
+    let token;
+    await reqPromise.post(authOptions)
+      .then(parsedBody => {
+        console.log('SUCCESS')
+        token = parsedBody.access_token
+        return token
+      })
+      .catch(err => {
+        console.log('ERROR', err)
+      })
+    console.log(token)
+    return token;
   }
-}
-//
+
+  async search(term) {
+    let token;
+    await this.getToken()
+      .then(tok => {
+        token = tok
+      })
+      let options = {
+        url: `https://api.spotify.com/v1/search?type=track&q=${term}`,
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Access-Control-Allow-Origin': '*'
+        },
+        json: true
+      }
+      await reqPromise.get(options)
+        .then(response => {
+          console.log(response.tracks.items)
+          return response.tracks.items
+        })
+    }
+  }
+  // jsonResponse.map(track => {
+  //   return {
+  //     id: track.id,
+  //     name: track.name,
+  //     artist: track.artists[0].name,
+  //     album: track.album.name,
+  //     uri: track.uri
+  //   }
+  // })
+
 // let spot = new Spotify()
 // spot.search('abba')
 
 export default Spotify;
-
-// jsonResponse.map(track => {
-//   return {
-//     id: track.id,
-//     name: track.name,
-//     artist: track.artists[0].name,
-//     album: track.album.name,
-//     uri: track.uri
-//   }
-// })
 
 //////////////////////////////////////////////////////////////////////////////
 
